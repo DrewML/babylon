@@ -167,7 +167,9 @@ pp.parseDecorator = function () {
   }
   let node = this.startNode();
   this.next();
+  this.state.inDecorator = true;
   node.expression = this.parseMaybeAssign();
+  this.state.inDecorator = false;
   return this.finishNode(node, "Decorator");
 };
 
