@@ -162,7 +162,7 @@ pp.parseDecorators = function (allowExport) {
 };
 
 pp.parseDecorator = function () {
-  if (!this.hasPlugin("decorators")) {
+  if (!this.hasPlugin("decorators") && !this.hasPlugin("classAndFieldDecorators")) {
     this.unexpected();
   }
   let node = this.startNode();
@@ -669,6 +669,11 @@ pp.parseClassBody = function (node) {
     let isAsync = false;
 
     this.parsePropertyName(method);
+
+    // Disallow decorating computed class properties/methods
+    if (this.hasPlugin("classAndFieldDecorators") && method.computed && method.decorators.length) {
+      this.raise(this.state.start, "Computed properties and/or computed member expressions cannot be decorated");
+    }
 
     method.static = isMaybeStatic && !this.match(tt.parenL);
     if (method.static) {

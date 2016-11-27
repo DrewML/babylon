@@ -1,3 +1,4 @@
 {
-  "plugins": ["decorators", "classProperties"]
+  "plugins": ["decorators", "classProperties", "classAndFieldDecorators"],
+  "throws": "Computed properties and/or computed member expressions cannot be decorated (1:23)"
 }
